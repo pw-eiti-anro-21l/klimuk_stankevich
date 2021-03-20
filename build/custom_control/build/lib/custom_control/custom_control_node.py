@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg  import Twist
 from curtsies import Input
-from rcl_interfaces.msg import ParameterDescriptor
+from rcl_interfaces.msg import ParameterType, ParameterDescriptor
 
 class CustomControlNode(Node):
     def __init__(self):
@@ -10,25 +10,25 @@ class CustomControlNode(Node):
         self.velocity_publisher = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
         
 
-        # mf__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
-        #                                               description='Key you press for moving forward')
+        mf__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
+                                                      description='Key you press for moving forward')
         
         self.declare_parameter("moving_forward", 'i', mf__descriptor)
         
-        # mb__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
-        #                                               description='Key you press for moving moving_backwards')
+        mb__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
+                                                      description='Key you press for moving moving_backwards')
 
         self.declare_parameter("moving_backwards", 'k', mb__descriptor)
         
-        # rcckw__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
-        #                                               description='Key you press for rotating counterclockwise')
+        rcckw__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
+                                                      description='Key you press for rotating counterclockwise')
         
-        self.declare_parameter("rotating_cckw", 'i')
+        self.declare_parameter("rotating_cckw", 'j', rcckw__descriptor)
 
-        # rckw__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
-        #                                               description='Key you press for rotating_clockwise')
+        rckw__descriptor = ParameterDescriptor(type=ParameterType.PARAMETER_STRING,
+                                                      description='Key you press for rotating_clockwise')
 
-        self.declare_parameter("rotating_ckw", 'l')
+        self.declare_parameter("rotating_ckw", 'l', rckw__descriptor)
 	
 
     def move_in_circle(self):
@@ -36,7 +36,7 @@ class CustomControlNode(Node):
         vel_msg.linear.x = 2.0
         vel_msg.angular.z = -1.8
         self.velocity_publisher.publish(vel_msg)
-        print("I am moving")
+        print("I am moving!!!")
 
 def get_input_character():
     with Input(keynames='curses') as input_generator:
@@ -54,24 +54,25 @@ def check_if_key_is_pressed(key):
 def check_if_key_is_pressed(key):
     global node
     with Input(keynames='curses') as input_generator:
-        for e in input_generator:
+        for e in input_generator.send(0.1):
             if e == key:
                 print("You are pressing the right key")
                 node.move_in_circle()
+
     	
 def main(args=None):
     global node
     print("Node is working")
     rclpy.init(args=args)
     node = CustomControlNode()
-    # for i in range(500):
-    #     node.move()
-    #     i += 1
+    for i in range(500):
+        node.move_in_circle()
+        i += 1
 
-    print("Press the key:")
-    pressed_character = get_input_character()
-    print(f"Your key is: {pressed_character}")
-    check_if_key_is_pressed(pressed_character)
+    # print("Press the key:")
+    # pressed_character = get_input_character()
+    # print(f"Your key is: {pressed_character}")
+    # check_if_key_is_pressed(pressed_character)
 
     rclpy.spin(node)
     rclpy.shutdown()
