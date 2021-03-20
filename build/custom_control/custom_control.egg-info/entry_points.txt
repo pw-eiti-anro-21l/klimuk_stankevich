@@ -1,0 +1,3 @@
+[console_scripts]
+custom_controller = custom_control.custom_control_node:main
+
