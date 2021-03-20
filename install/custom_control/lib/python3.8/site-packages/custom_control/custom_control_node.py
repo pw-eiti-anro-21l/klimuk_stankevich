@@ -3,6 +3,7 @@ from rclpy.node import Node
 from geometry_msgs.msg  import Twist
 from curtsies import Input
 from rcl_interfaces.msg import ParameterType, ParameterDescriptor
+from rclpy.parameter import Parameter
 
 class CustomControlNode(Node):
     def __init__(self):
@@ -29,7 +30,31 @@ class CustomControlNode(Node):
                                                       description='Key you press for rotating_clockwise')
 
         self.declare_parameter("rotating_ckw", 'l', rckw__descriptor)
-	
+
+
+    def move_forward(self):
+        vel_msg = Twist()
+        vel_msg.linear.x = 2.0
+        vel_msg.angular.z = 0.0
+        self.velocity_publisher.publish(vel_msg)
+
+    def move_backwards(self):
+        vel_msg = Twist()
+        vel_msg.linear.x = -2.0
+        vel_msg.angular.z = 0.0
+        self.velocity_publisher.publish(vel_msg)
+
+    def rotate_clockwise(self):
+        vel_msg = Twist()
+        vel_msg.linear.x = 0.0
+        vel_msg.angular.z = -2.0
+        self.velocity_publisher.publish(vel_msg)
+
+    def rotate_counterclockwise(self):
+        vel_msg = Twist()
+        vel_msg.linear.x = 0.0
+        vel_msg.angular.z = 2.0
+        self.velocity_publisher.publish(vel_msg)
 
     def move_in_circle(self):
         vel_msg = Twist()
@@ -51,6 +76,19 @@ def check_if_key_is_pressed(key):
             else:
                 print("You are pressing the WRONG key")
 
+def move_choosing(forward_key, backwards_key, counterclockwise_key, clockwise_key):
+    global node
+    with Input(keynames='curses') as input_generator:
+        for e in input_generator:
+            if e == forward_key:
+                node.move_forward()
+            elif e == backwards_key:
+                node.move_backwards()
+            elif e == counterclockwise_key:
+                node.rotate_counterclockwise()
+            elif e == clockwise_key:
+                node.rotate_clockwise()
+
 def check_if_key_is_pressed(key):
     global node
     with Input(keynames='curses') as input_generator:
@@ -65,9 +103,20 @@ def main(args=None):
     print("Node is working")
     rclpy.init(args=args)
     node = CustomControlNode()
-    for i in range(500):
-        node.move_in_circle()
-        i += 1
+
+    mf_key = node.get_parameter('moving_forward').value 
+    mb_key = node.get_parameter('moving_backwards').value
+    rcckw_key = node.get_parameter('rotating_cckw').value
+    rckw_key = node.get_parameter('rotating_ckw').value
+
+    print(f"Default keys for controlling: {mf_key}, {mb_key}, {rcckw_key}, {rckw_key}")
+
+    move_choosing(mf_key, mb_key, rcckw_key, rckw_key)
+
+    # for i in range(500):
+    #     node.move_in_circle()
+    #     i += 1
+
 
     # print("Press the key:")
     # pressed_character = get_input_character()
