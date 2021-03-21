@@ -15,7 +15,7 @@
 ### Opis:
 #### Węzeł `sterowanie_zolwiem`:
 - Klasa węzła o zadeklarowanych czterech parametrach (4 klawisza które powodują ruch albo obrót, w tym przypdaku **w**, **d**, **s** i **a**)
-`
+```
 class SterowanieZolwiem(Node):
 
     def __init__(self):
@@ -26,7 +26,7 @@ class SterowanieZolwiem(Node):
         self.declare_parameter('backwards','s')
         self.declare_parameter('left','a')
         self.declare_parameter('right','d')
-`
+```
 
 ### RQT graf systemu 
 ![rqt graph](./rqt_graph.jpg)
