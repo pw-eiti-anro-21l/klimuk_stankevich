@@ -14,7 +14,7 @@
 
 ### Opis:
 #### Węzeł `sterowanie_zolwiem`:
-- Klasa węzła o zadeklarowanych czterech parametrach (4 klawisza które powodują ruch albo obrót, w tym przypdaku **w**, **d**, **s** i **a**)
+- [Klasa](./package_lab1/package_lab1/sterowanie_zolwiem.py) węzła o zadeklarowanych czterech parametrach (4 klawisza które powodują ruch albo obrót, w tym przypdaku **w**, **d**, **s** i **a**)
 ```
 class SterowanieZolwiem(Node):
 
