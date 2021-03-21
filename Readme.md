@@ -12,4 +12,5 @@
 
 ## Opis systemu:
 Węzeł *custom control* sczytuje wciśnięte klawisze i zadaje prędkość żółwia, komunikując się z węzłem *turtlesim* za pomocą tematu _turtle1/cmd_vel_\
+Graf systemu:\
 https://wutwaw-my.sharepoint.com/:i:/g/personal/01155513_pw_edu_pl/EXLaKRa5-MBEqqMS99O64a8BYQNM8U-90o1d0JNnxhqApg?e=mWXTh6
