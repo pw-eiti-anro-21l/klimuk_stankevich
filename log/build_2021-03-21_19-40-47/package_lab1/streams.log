@@ -1,0 +1,37 @@
+[0.209s] Invoking command in '/home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/package_lab1': PYTHONPATH=/home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/package_lab1 build --build-base /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build install --prefix /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1 --record /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/install.log --single-version-externally-managed
+[0.389s] running egg_info
+[0.389s] creating ../build/package_lab1/package_lab1.egg-info
+[0.389s] writing ../build/package_lab1/package_lab1.egg-info/PKG-INFO
+[0.390s] writing dependency_links to ../build/package_lab1/package_lab1.egg-info/dependency_links.txt
+[0.390s] writing entry points to ../build/package_lab1/package_lab1.egg-info/entry_points.txt
+[0.390s] writing requirements to ../build/package_lab1/package_lab1.egg-info/requires.txt
+[0.390s] writing top-level names to ../build/package_lab1/package_lab1.egg-info/top_level.txt
+[0.391s] writing manifest file '../build/package_lab1/package_lab1.egg-info/SOURCES.txt'
+[0.416s] reading manifest file '../build/package_lab1/package_lab1.egg-info/SOURCES.txt'
+[0.417s] writing manifest file '../build/package_lab1/package_lab1.egg-info/SOURCES.txt'
+[0.417s] running build
+[0.417s] running build_py
+[0.418s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build
+[0.418s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build/lib
+[0.418s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build/lib/package_lab1
+[0.418s] copying package_lab1/__init__.py -> /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build/lib/package_lab1
+[0.418s] copying package_lab1/sterowanie_zolwiem.py -> /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build/lib/package_lab1
+[0.418s] running install
+[0.419s] running install_lib
+[0.420s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages/package_lab1
+[0.420s] copying /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build/lib/package_lab1/__init__.py -> /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages/package_lab1
+[0.420s] copying /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build/lib/package_lab1/sterowanie_zolwiem.py -> /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages/package_lab1
+[0.420s] byte-compiling /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages/package_lab1/__init__.py to __init__.cpython-38.pyc
+[0.421s] byte-compiling /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages/package_lab1/sterowanie_zolwiem.py to sterowanie_zolwiem.cpython-38.pyc
+[0.422s] running install_data
+[0.423s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/share/ament_index
+[0.423s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/share/ament_index/resource_index
+[0.423s] creating /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/share/ament_index/resource_index/packages
+[0.423s] copying resource/package_lab1 -> /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/share/ament_index/resource_index/packages
+[0.423s] copying package.xml -> /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/share/package_lab1
+[0.423s] running install_egg_info
+[0.424s] Copying ../build/package_lab1/package_lab1.egg-info to /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages/package_lab1-0.0.0-py3.8.egg-info
+[0.425s] running install_scripts
+[0.440s] Installing sterowanie_zolwiem script to /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/package_lab1
+[0.440s] writing list of installed files to '/home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/install.log'
+[0.458s] Invoked command in '/home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/package_lab1' returned '0': PYTHONPATH=/home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/package_lab1 build --build-base /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/build install --prefix /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/install/package_lab1 --record /home/stanislau/studia/anro/dev_ws/src/klimuk_stankevich/build/package_lab1/install.log --single-version-externally-managed

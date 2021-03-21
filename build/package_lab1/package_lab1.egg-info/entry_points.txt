@@ -1,0 +1,3 @@
+[console_scripts]
+sterowanie_zolwiem = package_lab1.sterowanie_zolwiem:main
+
