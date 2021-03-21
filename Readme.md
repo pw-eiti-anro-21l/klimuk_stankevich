@@ -8,7 +8,7 @@
 3. Wpisać polecenie `colcon build --packages-select custom_control`
 4. Otworzyć nowe okno terminala przejść do foldera klimuk_stankecich i wpisać `. install/local_setup.bash `
 5. Wpisać polecenie `ros2 launch custom_control custom_control_launch.py `
-6. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwrte terminale
+6. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
 ## Opis systemu:
 Węzeł *custom control* komunikuje się z węzłem *turtlesim* za pomocą tematu _turtle1/cmd_vel_\
