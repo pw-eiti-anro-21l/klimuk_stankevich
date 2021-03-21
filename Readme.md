@@ -6,7 +6,7 @@
 1. Pobrać repozytorium za pomocą polecenia `git clone 'https://github.com/pw-eiti-anro-21l/klimuk_stankevich.git'`
 2. Przejść do foldera klimuk_stankevich za pomocą polecenia `cd klimuk_stankevich/` i wpisać polecenie `git checkout pklimuk_zad1`
 3. Wpisać polecenie `colcon build --packages-select custom_control`
-4. Otworzyć nowe okno terminala przejść do foldera klimuk_stankecich i wpisać `. install/local_setup.bash `
+4. Otworzyć nowe okno terminala, przejść do foldera klimuk_stankecich i wpisać `. install/local_setup.bash `
 5. Wpisać polecenie `ros2 launch custom_control custom_control_launch.py `
 6. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
