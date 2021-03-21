@@ -54,5 +54,7 @@ class SterowanieZolwiem(Node):
     	elif key == self.get_parameter('right').get_parameter_value().string_value:
     		self.turn_right()
 ```
+#### [Launch-file](./package_lab1/launch_lab1/sterowanie_zolwiem_launch.py) `sterowanie_zolwiem_launch.py`.
+
 ### RQT graf systemu 
 ![rqt graph](./rqt_graph.jpg)
