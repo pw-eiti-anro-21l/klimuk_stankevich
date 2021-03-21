@@ -13,7 +13,7 @@
 6. i uruchamiamy system za pomocą `ros2 launch sterowanie_zolwiem_launch.py`
 
 ### Opis:
-####: Węzeł `sterowanie_zolwiem`:
+#### Węzeł `sterowanie_zolwiem`
 
 ### RQT graf systemu 
 ![rqt graph](./rqt_graph.jpg)
