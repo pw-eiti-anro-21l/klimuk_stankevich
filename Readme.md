@@ -9,6 +9,11 @@
 2. W pobranym katalogu otwieramy terminal (w nim jak i w każdym innnym robimy `source gdzie/zainstalowany/jest/ROS2/setup.bash`)
 3. Budujemy pakiet za pomocą polecenia `colcon build --packages-select package_lab1`
 4. W tym samym katalogu otwieramy terminal i robimy `. install/local_setup.bash`
-5. W tym drugim terminalu idziemy do `cd package_lab1/launch_lab1` i uruchamiamy system za pomocą `ros2 launch sterowanie_zolwiem_launch.py`
+5. W tym drugim terminalu idziemy do `cd package_lab1/launch_lab1` 
+6. i uruchamiamy system za pomocą `ros2 launch sterowanie_zolwiem_launch.py`
+
+### Opis:
+####: Węzeł `sterowanie_zolwiem`:
+
 ### RQT graf systemu 
 ![rqt graph](./rqt_graph.jpg)
