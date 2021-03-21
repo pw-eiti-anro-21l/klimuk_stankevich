@@ -27,6 +27,32 @@ class SterowanieZolwiem(Node):
         self.declare_parameter('left','a')
         self.declare_parameter('right','d')
 ```
-
+- Wykrywanie naciśnięć klawisz za pomocą biblioteki pythonowej **curtsies** obiekt `Input()`:
+```
+    def get_key(self):
+    	with Input(keynames='curtsies') as input_generator:
+    		for e in Input():
+    			return e
+```
+- Funkcja własna (przykład, pozostałe są takie same) do publikowania prędkości:
+```
+    def move_forward(self):
+    	self.new_velocity.linear.x = 1.0
+    	self.new_velocity.angular.z = 0.0
+    	self.publisher_.publish(self.new_velocity)
+```
+- Funkcja pobierająca wartość naciśniętego klawisza i wywołująca odpowiednią funkcję ruchu:
+```
+    def move_control(self):
+    	key = self.get_key()
+    	if key == self.get_parameter('forward').get_parameter_value().string_value:
+    		self.move_forward()
+    	elif key == self.get_parameter('backwards').get_parameter_value().string_value:
+    		self.move_backwards()
+    	elif key == self.get_parameter('left').get_parameter_value().string_value:
+    		self.turn_left()
+    	elif key == self.get_parameter('right').get_parameter_value().string_value:
+    		self.turn_right()
+```
 ### RQT graf systemu 
 ![rqt graph](./rqt_graph.jpg)
