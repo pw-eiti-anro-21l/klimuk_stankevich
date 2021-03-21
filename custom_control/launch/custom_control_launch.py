@@ -5,12 +5,12 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='turtlesim',
-            namespace='turtlesim1',
             executable='turtlesim_node',
-            name='sim'
+            name='turtlesim'
         ),
         Node(
             package='custom_control',
+            prefix='gnome-terminal --',
             executable='custom_controller',
             name='custom_controller'
         )
