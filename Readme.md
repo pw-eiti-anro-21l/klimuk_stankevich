@@ -11,6 +11,6 @@
 6. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwrte terminale
 
 ## Opis systemu:
-Węzeł *custom control* komunikuje się z węzłem *turtlesim* za pomocą topic'a _turtle1/cmd_vel_
+Węzeł *custom control* komunikuje się z węzłem *turtlesim* za pomocą topic'a _turtle1/cmd_vel_\
 ![Graf zależności][1]
 [1] : https://wutwaw-my.sharepoint.com/:i:/g/personal/01155513_pw_edu_pl/EXLaKRa5-MBEqqMS99O64a8BB0yq2cU5yB_M4d3aH2nTYw?e=b4V8Yb
