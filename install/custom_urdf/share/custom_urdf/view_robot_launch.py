@@ -14,6 +14,7 @@ def generate_launch_description():
     # Get the launch directory
     bringup_dir = get_package_share_directory('custom_urdf')
     launch_dir = os.path.join(bringup_dir, 'launch')
+    config = os.path.join(bringup_dir, 'params.yaml')
 
     # Launch configuration variables specific to simulation
     rviz_config_file = LaunchConfiguration('rviz_config_file')
@@ -48,7 +49,8 @@ def generate_launch_description():
 
     # declare_use_calc_params_cmd = DeclareLaunchArgument(
     #     'use_calc_params',
-    #     default_value=os.path.join(bringup_dir, 'lesson_urdf', 'calculate_params.py')
+    #     default_value=os.path.join(bringup_dir, 'custom_urdf', 'calculate_params.py'),
+    #     description='123')
 
 
     start_robot_state_publisher_cmd = Node(
@@ -75,14 +77,14 @@ def generate_launch_description():
         name='rviz2',
         arguments=['-d', rviz_config_file],
         output='screen')
-        
-    # start_calc_params_cmd = Node(
-    #     condition=IfCondition(use_calc_params),
-    #     package='lesson_urdf',
-    #     executable='calculate_params',
-    #     name='calculate_params',
-    #     output='screen',
-        
+
+    start_calc_params_cmd = Node(
+            package='custom_urdf',
+            prefix='gnome-terminal --',
+            executable='calc_params',
+            name='calc_params',
+            parameters= [config])
+                
   
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -92,15 +94,42 @@ def generate_launch_description():
     ld.add_action(declare_urdf_cmd)
     ld.add_action(declare_use_robot_state_pub_cmd)
     ld.add_action(declare_use_joint_state_pub_cmd)
-    ld.add_action(declare_use_rviz_cmd)
+    # ld.add_action(declare_use_rviz_cmd)
     # ld.add_action(declare_use_calc_params_cmd)
 
 
     # Add any conditioned actions
     ld.add_action(start_joint_state_publisher_cmd)
     ld.add_action(start_robot_state_publisher_cmd)
-    ld.add_action(rviz_cmd)
-    # ld.add_action(start_calc_params_cmd)
+    # ld.add_action(rviz_cmd)
+    ld.add_action(start_calc_params_cmd)
 
     return ld   
     
+
+
+
+
+# def generate_launch_description():
+#     # Get the launch directory
+#     bringup_dir = get_package_share_directory('custom_urdf')
+#     launch_dir = os.path.join(bringup_dir, 'launch')
+#     config = os.path.join(bringup_dir, 'params.yaml')
+
+#     start_calc_params_cmd = Node(
+#                 package='custom_urdf',
+#                 prefix='gnome-terminal --',
+#                 executable='calc_params',
+#                 name='calc_params',
+#                 parameters= [config])
+
+#     # start_calc_params_cmd = Node(
+#     #             package='custom_urdf',
+#     #             prefix='gnome-terminal --',
+#     #             executable='calc_params',
+#     #             name='calc_params')
+
+#     ld = LaunchDescription()
+#     ld.add_action(start_calc_params_cmd)
+    
+#     return ld 

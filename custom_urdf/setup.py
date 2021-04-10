@@ -14,7 +14,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name), glob('launch/*.py')),
         (os.path.join('share', package_name), glob('urdf/*')),
-        (os.path.join('share', package_name), glob('rviz/*'))
+        (os.path.join('share', package_name), glob('rviz/*')),
+        (os.path.join('share', package_name), glob('config/*.yaml'))
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -25,6 +26,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+        	'calc_params = custom_urdf.calculate_params_node:main',
+        	'calculate_joints_coordinates = custom_urdf.DHtoURDF:calculate_joints_coordinates'
         ],
     },
 )
