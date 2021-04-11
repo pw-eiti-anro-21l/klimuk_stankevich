@@ -8,8 +8,9 @@
 2. Przejść do foldera klimuk_stankevich za pomocą polecenia `cd klimuk_stankevich/`
 3. Wpisać polecenie `colcon build --packages-select custom_control`
 4. Otworzyć nowe okno terminala, przejść do foldera klimuk_stankecich i wpisać `. install/local_setup.bash `
-5. Wpisać polecenie `ros2 launch custom_urdf view_robot_launch.py `
-6. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
+5. Wpisać polecenie `ros2 launch custom_urdf calculate_params_launch.py `, zamknąć nowopowstały terminal.
+6. Wpisać polecenie `ros2 launch custom_urdf view_robot_launch.py `
+7. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
 ### RQT graf systemu 
 ![rqt graph](./ANRO_zadanie2.png)
