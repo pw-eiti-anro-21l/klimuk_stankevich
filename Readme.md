@@ -10,3 +10,6 @@
 4. Otworzyć nowe okno terminala, przejść do foldera klimuk_stankecich i wpisać `. install/local_setup.bash `
 5. Wpisać polecenie `ros2 launch custom_urdf view_robot_launch.py `
 6. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
+
+### RQT graf systemu 
+![rqt graph](./ANRO_zadanie2.png)
