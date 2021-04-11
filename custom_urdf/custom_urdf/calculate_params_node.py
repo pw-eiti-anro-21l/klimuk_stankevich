@@ -41,9 +41,17 @@ class CalculateParamsNode(Node):
 #     rcckw_key = node.get_parameter('rotating_cckw').value
 #     rckw_key = node.get_parameter('rotating_ckw').value
 #     return mf_key, mb_key, rcckw_key, rckw_key
+def get_joints_parameters(node):
+    fixed = node.get_parameter('joint_fixed').value
+    shoulder = node.get_parameter('joint_shoulder').value
+    elbow = node.get_parameter('joint_elbow').value
+    wrist = node.get_parameter('joint_wrist').value
+    fixed_end = node.get_parameter('joint_fixed_end').value
+    return fixed, shoulder, elbow, wrist, fixed_end
+
         
 def main(args=None):
-    # global node
+    global node
     # rclpy.init(args=args)
     # node = CalculateParamsNode()
             
@@ -82,11 +90,11 @@ def main(args=None):
     fixed_end_param = Parameter('joint_fixed_end', Parameter.Type.DOUBLE_ARRAY, result_table[3])
     node.set_parameters([shoulder_param, elbow_param, wrist_param, fixed_end_param])
 
-    print(node.get_parameter('joint_shoulder').value)
-    print(node.get_parameter('joint_elbow').value)
-    print(node.get_parameter('joint_wrist').value)
-    print(node.get_parameter('joint_fixed_end').value)
+    joints_params_list = get_joints_parameters(node)
 
+    write_params_to_yaml(joints_params_list, "./custom_urdf/config/joints_params.yaml")
+    for i in joints_params_list:
+        print(i)
 
     rclpy.spin(node)
     node.destroy_node()

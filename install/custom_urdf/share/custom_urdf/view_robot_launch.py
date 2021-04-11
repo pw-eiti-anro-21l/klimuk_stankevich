@@ -94,14 +94,14 @@ def generate_launch_description():
     ld.add_action(declare_urdf_cmd)
     ld.add_action(declare_use_robot_state_pub_cmd)
     ld.add_action(declare_use_joint_state_pub_cmd)
-    # ld.add_action(declare_use_rviz_cmd)
+    ld.add_action(declare_use_rviz_cmd)
     # ld.add_action(declare_use_calc_params_cmd)
 
 
     # Add any conditioned actions
     ld.add_action(start_joint_state_publisher_cmd)
     ld.add_action(start_robot_state_publisher_cmd)
-    # ld.add_action(rviz_cmd)
+    ld.add_action(rviz_cmd)
     ld.add_action(start_calc_params_cmd)
 
     return ld   

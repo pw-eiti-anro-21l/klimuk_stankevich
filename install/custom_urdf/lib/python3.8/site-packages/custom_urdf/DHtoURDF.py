@@ -1,3 +1,5 @@
+import yaml
+
 class DH_row:
 	def __init__(self, row):
 		self.a = row[0]
@@ -71,6 +73,29 @@ def calculate_joints_coordinates(list_of_string_rows):
 		joint_coordinates_table.append(inner_coordinates_table)
 
 	return joint_coordinates_table
+
+def write_params_to_yaml(joint_params, path_to_file):
+	joints_dict = [{"joint_fixed": joint_params[0], "joint_shoulder": joint_params[1],
+					"joint_elbow": joint_params[2], "joint_wrist": joint_params[3],
+					"joint_fixed_end": joint_params[4]}]
+	f = open(path_to_file, "w")
+	f.write("calc_params:\n")
+	f.write("  ros__parameters:\n")
+	f.close()
+	with open(path_to_file, 'a') as file:
+		documents = yaml.dump_all([joints_dict], file, indent=4)
+	with open(path_to_file, "r") as file_2:
+		data = file_2.readlines()
+	string_to_change = data[2]
+	new_string = ""
+	for i in range(0, len(string_to_change)-1):
+		if i == 0:
+			new_string +=" "
+		else:
+			new_string += string_to_change[i]
+	data[2] = new_string + "\n"
+	with open(path_to_file, "w") as file_2:
+		file_2.writelines(data)
 
 def print_hello():
 	print("Hello")

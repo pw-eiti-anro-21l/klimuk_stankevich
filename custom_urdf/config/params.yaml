@@ -1,5 +1,17 @@
 calc_params:
   ros__parameters:
-    table_row_1: ["0.0", "1.3", "0.0", "theta_1"]
-    table_row_2: ["0.5", "0.0", "0.0", "theta_2"]
-    table_row_3: ["0.5", "0.5", "-3.14", "0.0"]
+    table_row_1:
+    - '0.0'
+    - '1.3'
+    - '0.0'
+    - theta_1
+    table_row_2:
+    - '0.5'
+    - '0.0'
+    - '0.0'
+    - theta_2
+    table_row_3:
+    - '0.5'
+    - '0.5'
+    - '-3.14'
+    - '0.0'
