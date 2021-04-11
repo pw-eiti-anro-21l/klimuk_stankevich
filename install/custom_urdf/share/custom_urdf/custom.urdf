@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<robot name="planar_3dof" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<robot name="custom_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <material name="red">
     <color rgba="0.8 0.0 0.0 1.0"/>
