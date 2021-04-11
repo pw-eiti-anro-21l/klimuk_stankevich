@@ -28,19 +28,7 @@ class CalculateParamsNode(Node):
             print('CalculateParamsNode is working')
             my_main()
 
-# def change_parameters(node, new_param_list):
-#     param_mf = Parameter('moving_forward', Parameter.Type.STRING, new_param_list[0])
-#     param_mb = Parameter('moving_backwards', Parameter.Type.STRING, new_param_list[1])
-#     param_rcckw = Parameter('rotating_cckw', Parameter.Type.STRING, new_param_list[2])
-#     param_rckw = Parameter('rotating_ckw', Parameter.Type.STRING, new_param_list[3])
-#     node.set_parameters([param_mf, param_mb, param_rcckw, param_rckw])
 
-# def get_nodes_parameters(node):
-#     mf_key = node.get_parameter('moving_forward').value 
-#     mb_key = node.get_parameter('moving_backwards').value
-#     rcckw_key = node.get_parameter('rotating_cckw').value
-#     rckw_key = node.get_parameter('rotating_ckw').value
-#     return mf_key, mb_key, rcckw_key, rckw_key
 def get_joints_parameters(node):
     fixed = node.get_parameter('joint_fixed').value
     shoulder = node.get_parameter('joint_shoulder').value
@@ -52,25 +40,6 @@ def get_joints_parameters(node):
         
 def main(args=None):
     global node
-    # rclpy.init(args=args)
-    # node = CalculateParamsNode()
-            
-    # thread = threading.Thread(target=rclpy.spin, args=(node, ), daemon=True)
-    # thread.start()
-    # rate = node.create_rate(10)
-    # try:
-    #     while rclpy.ok():
-    #         print(node.get_parameter('table_row_1').value)
-    #         print(node.get_parameter('table_row_2').value)
-    #         print(node.get_parameter('table_row_3').value)
-    #         print('CalculateParamsNode is working')
-    #         # my_main()
-    #         rate.sleep()
-    # except KeyboardInterrupt:
-    #     pass
-    #     rclpy.spin(node)
-    # rclpy.shutdown()
-    # thread.join()
 
     rclpy.init(args=args)
     node = CalculateParamsNode()
@@ -82,7 +51,6 @@ def main(args=None):
     rows_strings_table = [t1_row, t2_row, t3_row]
     result_table = calculate_joints_coordinates(rows_strings_table)
     
-    print(result_table)
     
     shoulder_param = Parameter('joint_shoulder', Parameter.Type.DOUBLE_ARRAY, result_table[0])
     elbow_param = Parameter('joint_elbow', Parameter.Type.DOUBLE_ARRAY, result_table[1])
@@ -93,8 +61,9 @@ def main(args=None):
     joints_params_list = get_joints_parameters(node)
 
     write_params_to_yaml(joints_params_list, "./custom_urdf/config/joints_params.yaml")
-    for i in joints_params_list:
-        print(i)
+    
+    print("Joints parameters has been written to yaml file")
+    print("You can now launch view_robot_launch.py")
 
     rclpy.spin(node)
     node.destroy_node()
