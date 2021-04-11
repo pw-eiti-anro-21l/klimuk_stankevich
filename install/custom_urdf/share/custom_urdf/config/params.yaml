@@ -1,0 +1,6 @@
+calc_params:
+  ros__parameters:
+    joint_1: ['Nice1', 'more1', 'params1']
+    joint_2: ['Nice2', 'more', 'params']
+    joint_3: ['Nice3', 'more', 'params']
+    joint_4: ['Nice4', 'more', 'params']
