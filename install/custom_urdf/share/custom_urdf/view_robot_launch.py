@@ -23,6 +23,8 @@ def generate_launch_description():
     use_rviz = LaunchConfiguration('use_rviz')
     urdf_file= LaunchConfiguration('urdf_file')
     
+    os.system("xacro --inorder "+bringup_dir+"/custom.urdf.xacro > "+bringup_dir+"/custom.urdf")
+    
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         'rviz_config_file',
         default_value=os.path.join(bringup_dir, 'view.rviz'),
@@ -91,30 +93,3 @@ def generate_launch_description():
 
     return ld   
     
-
-
-
-
-# def generate_launch_description():
-#     # Get the launch directory
-#     bringup_dir = get_package_share_directory('custom_urdf')
-#     launch_dir = os.path.join(bringup_dir, 'launch')
-#     config = os.path.join(bringup_dir, 'params.yaml')
-
-#     start_calc_params_cmd = Node(
-#                 package='custom_urdf',
-#                 prefix='gnome-terminal --',
-#                 executable='calc_params',
-#                 name='calc_params',
-#                 parameters= [config])
-
-#     # start_calc_params_cmd = Node(
-#     #             package='custom_urdf',
-#     #             prefix='gnome-terminal --',
-#     #             executable='calc_params',
-#     #             name='calc_params')
-
-#     ld = LaunchDescription()
-#     ld.add_action(start_calc_params_cmd)
-    
-#     return ld 

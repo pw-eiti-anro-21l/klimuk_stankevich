@@ -14,7 +14,6 @@ def generate_launch_description():
     bringup_dir = get_package_share_directory('custom_urdf')
     launch_dir = os.path.join(bringup_dir, 'launch')
     config = os.path.join(bringup_dir, 'params.yaml')
-
     start_calc_params_cmd = Node(
                 package='custom_urdf',
                 prefix='gnome-terminal --',
