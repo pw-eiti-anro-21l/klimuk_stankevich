@@ -14,6 +14,7 @@
 8. Wpisać polecenie `ros2 launch custom_urdf view_robot_launch.py `
 9. W tym momencie aktualne dane z pliku `joint_params.yaml` zostaja zaimportowane do pliku `custom.urdf.xacro` i xacro-plik zostaje przekonwertowany na aktualny URDF, na podstawie którego RVIZ tworzy wizualizację.
 10. Zmieniając plik `params.yaml` (czyli zmieniając parametry DH) i ponownie uruchamiając launch'e dostajemy wizualizację o aktualnych (zmienionych parametrach):
+
 ![dh1](./DH1.png) ![rviz1](./RVIZ1.png)
  
 ![dh2](./DH2.png) ![rviz2](RVIZ2.png)
