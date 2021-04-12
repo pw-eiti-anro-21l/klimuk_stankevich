@@ -6,7 +6,7 @@
 ##### Wsyztkie polecenia należy wpisywać w terminalu(`CTR+ALT+T`)
 1. Pobrać repozytorium za pomocą polecenia `git clone 'https://github.com/pw-eiti-anro-21l/klimuk_stankevich.git'`
 2. Przejść do foldera klimuk_stankevich za pomocą polecenia `cd klimuk_stankevich/`
-3. Parametry DH są przechowywane w pliku `params.yaml` w folderze *config*
+3. Parametry DH są przechowywane w pliku `params.yaml` w folderze **config**
 4. Wpisać polecenie `colcon build --packages-select custom_control`
 5. Otworzyć nowe okno terminala, przejść do foldera klimuk_stankecich i wpisać `. install/local_setup.bash `
 6. Wpisać polecenie `ros2 launch custom_urdf calculate_params_launch.py `, zamknąć nowopowstały terminal.
