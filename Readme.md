@@ -19,7 +19,12 @@
  
 ![dh2](./DH2.png) ![rviz2](RVIZ2.png)
 
-13. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
+11. Ruchomymi stawami robota sterujemy za pomocą `joint_state_publisher`'a z GUI:
+
+![jsp](./jsp_gui.png)
+
+
+12. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
 
 
