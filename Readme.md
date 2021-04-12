@@ -18,6 +18,7 @@
 ![dh1](./DH1.png) ![rviz1](./RVIZ1.png)
  
 ![dh2](./DH2.png) ![rviz2](RVIZ2.png)
+
 13. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
 
