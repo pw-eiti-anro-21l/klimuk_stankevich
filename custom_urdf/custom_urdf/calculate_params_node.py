@@ -65,6 +65,7 @@ def main(args=None):
 
     write_params_to_yaml(joints_params_list, "./custom_urdf/config/joints_params.yaml", "calc_params")
     write_params_to_yaml(joints_params_list, "./custom_urdf/config/nonkdl_params.yaml", "NONKDL_DKIN")
+    write_params_to_yaml(joints_params_list, "./custom_urdf/config/kdl_params.yaml", "KDL_DKIN")
     
     print("Joints parameters has been written to yaml file")
     print("You can now launch view_robot_launch.py")

@@ -143,6 +143,7 @@
   </joint>
 
 
+
   <joint name="wrist_connector" type="prismatic">
     <parent link="connector" />
     <child link="hand" />
