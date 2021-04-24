@@ -23,7 +23,7 @@ def generate_launch_description():
     use_rviz = LaunchConfiguration('use_rviz')
     urdf_file= LaunchConfiguration('urdf_file')
     
-    # os.system("xacro --inorder "+bringup_dir+"/custom.urdf.xacro > "+bringup_dir+"/custom.urdf")
+    os.system("xacro --inorder "+bringup_dir+"/custom.urdf.xacro > "+bringup_dir+"/custom.urdf")
     
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         'rviz_config_file',

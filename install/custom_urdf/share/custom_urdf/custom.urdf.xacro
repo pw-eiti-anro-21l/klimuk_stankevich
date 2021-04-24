@@ -7,6 +7,7 @@
   <xacro:property name="joint_shoulder_params" value="${joint_params['calc_params']['ros__parameters']['joint_shoulder']}" />
   <xacro:property name="joint_wrist_params" value="${joint_params['calc_params']['ros__parameters']['joint_wrist']}" />
   <xacro:property name="joint_fixed_end_params" value="${joint_params['calc_params']['ros__parameters']['joint_fixed_end']}" />
+  <xacro:property name="joint_wrist_connector_params" value="${joint_params['calc_params']['ros__parameters']['joint_wrist_connector']}" />
 
   <xacro:property name="joint_shoulder_origin_xyz" value="${joint_shoulder_params[0]} ${joint_shoulder_params[1]} ${joint_shoulder_params[2]}" />
   <xacro:property name="joint_shoulder_origin_rpy" value="${joint_shoulder_params[3]} ${joint_shoulder_params[4]} ${joint_shoulder_params[5]}" />
@@ -17,7 +18,7 @@
   <xacro:property name="joint_elbow_axis" value="${int(joint_elbow_params[6])} ${int(joint_elbow_params[7])} ${int(joint_elbow_params[8])}" />
 
   <xacro:property name="joint_wrist_origin_xyz" value="${joint_wrist_params[0]} ${joint_wrist_params[1]} ${joint_wrist_params[2]}" />
-  <xacro:property name="joint_wrist_origin_rpy" value="${joint_wrist_params[3]} ${joint_wrist_params[4]} ${joint_wrist_params[5]}" />
+  <xacro:property name="joint_wrist_origin_rpy" value="-3.14 0 0" />
   <xacro:property name="joint_wrist_axis" value="${int(joint_wrist_params[6])} ${int(joint_wrist_params[7])} ${int(joint_wrist_params[8])}" />
 
   <xacro:property name="joint_fixed_end_origin_xyz" value="${joint_fixed_end_params[0]} ${joint_fixed_end_params[1]} ${joint_fixed_end_params[2]}" />
@@ -37,11 +38,15 @@
   <xacro:property name="link_forearm_rpy" value="0 1.5708 0" />
   <xacro:property name="link_forearm_length" value="${joint_wrist_params[0]}" />
 
-  <xacro:property name="link_hand_xyz1" value="${joint_fixed_end_params[0]/2} ${joint_fixed_end_params[1]/2} ${joint_fixed_end_params[2]/2}" />
-  <xacro:property name="link_hand_xyz2" value="${joint_fixed_end_params[2]/2} ${joint_fixed_end_params[1]/2} ${joint_fixed_end_params[0]/2}" />  
-  <xacro:property name="link_hand_rpy1" value="0 0 1.5708" />
-  <xacro:property name="link_hand_rpy2" value="0 1.5708 0" />
-  <xacro:property name="link_hand_length" value="${joint_fixed_end_params[2]}" />
+  <xacro:property name="link_hand_xyz" value="${joint_fixed_end_params[0]/2} ${joint_fixed_end_params[1]/2} ${joint_fixed_end_params[2]/2}" />
+
+  <xacro:property name="link_hand_rpy" value="${joint_wrist_connector_params[3]} ${joint_wrist_connector_params[4]} ${joint_wrist_connector_params[5]}" />
+  <xacro:property name="link_hand_length" value="${-joint_fixed_end_params[0]}" />
+
+  <xacro:property name="joint_wrist_connector_origin_xyz" value="${joint_wrist_connector_params[0]} ${joint_wrist_connector_params[1]} ${joint_wrist_connector_params[2]}" />
+  <xacro:property name="joint_wrist_connector_origin_rpy" value="${joint_wrist_connector_params[3]} ${joint_wrist_connector_params[4]} ${joint_wrist_connector_params[5]}" />
+  <xacro:property name="joint_wrist_connector_axis" value="${joint_wrist_connector_params[6]} ${joint_wrist_connector_params[7]} ${joint_wrist_connector_params[8]}" />
+  <xacro:property name="joint_wrist_connector_upperlimit" value="${link_hand_length}" />
 
   <material name="red">
     <color rgba="0.8 0.0 0.0 1.0"/>
@@ -90,7 +95,7 @@
     </link>
   </xacro:macro>
 
-    <xacro:macro name="joint_template" params="name type parent child xyz rpy axis">
+    <xacro:macro name="joint_template" params="name type parent child xyz rpy axis prismatic_limit">
     <joint name="${name}" type="${type}">
       <parent link="${parent}" />
       <child link="${child}" />
@@ -98,6 +103,9 @@
       <xacro:if value="${type == 'revolute'}">
       <axis xyz="${axis}" />
       <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5" />
+    </xacro:if>
+      <xacro:if value="${type == 'prismatic'}">
+      <limit lower="0.0" upper="${prismatic_limit}" effort="1000.0" velocity="0.5" />
     </xacro:if>
     </joint>
   </xacro:macro>
@@ -126,24 +134,24 @@
   </link>
   </xacro:macro>
 
-  <xacro:macro name="hand_template" params="name xyz1 xyz2 rpy1 rpy2 length radius material" >
+  <xacro:macro name="hand_template" params="name xyz rpy length radius material" >
     <link name="${name}">
     <visual>
-      <origin xyz="${xyz1}" rpy="${rpy1}" />
+      <origin xyz="${xyz}" rpy="${rpy}" />
       <geometry>
         <cylinder length="${length}" radius="${radius}" />
       </geometry>
       <material name="${material}"/>
     </visual>
     <collision>
-      <origin rpy="${rpy2}" xyz="${xyz2}" />
+      <origin rpy="${rpy}" xyz="${xyz}" />
       <geometry>
         <cylinder length="${length}" radius="${radius}" />
       </geometry>
       <material name="${material}"/>
     </collision>
     <inertial>
-      <origin xyz="${xyz1}" rpy="${rpy2}" />
+      <origin xyz="${xyz}" rpy="${rpy}" />
       <mass value="1" />
       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
     </inertial>
@@ -162,15 +170,19 @@
 
   <link_template name="arm" rpy="${link_arm_rpy}" xyz="${link_arm_xyz}" length="${link_arm_length}" radius="0.05" material="red" />
 
-  <joint_template name="shoulder" type="revolute" parent="body" child="arm" xyz="${joint_shoulder_origin_xyz}" rpy="${joint_shoulder_origin_rpy}" axis="${joint_shoulder_axis}" />
+  <joint_template name="shoulder" type="revolute" parent="body" child="arm" xyz="${joint_shoulder_origin_xyz}" rpy="${joint_shoulder_origin_rpy}" axis="${joint_shoulder_axis}" prismatic_limit="none"/>
 
   <link_template name="forearm" rpy="${link_forearm_rpy}" xyz="${link_forearm_xyz}" length="${link_forearm_length}" radius="0.05" material="grey" />
 
-  <joint_template name="elbow" type="revolute" parent="arm" child="forearm" xyz="${joint_elbow_origin_xyz}" rpy="${joint_elbow_origin_rpy}" axis="${joint_elbow_axis}" />
+  <joint_template name="elbow" type="revolute" parent="arm" child="forearm" xyz="${joint_elbow_origin_xyz}" rpy="${joint_elbow_origin_rpy}" axis="${joint_elbow_axis}" prismatic_limit="none"/>
 
-  <hand_template name="hand" xyz1="${link_hand_xyz1}" xyz2="${link_hand_xyz2}" rpy1="${link_hand_rpy1}" rpy2="${link_hand_rpy2}" length="${link_hand_length}" radius="0.05" material="red" />
+  <hand_template name="hand" xyz="${link_hand_xyz}" rpy="${link_hand_rpy}" length="${link_hand_length}" radius="0.05" material="red" />
 
-  <joint_template name="wrist" type="fixed" parent="forearm" child="hand" xyz="${joint_wrist_origin_xyz}" rpy="${joint_wrist_origin_rpy}" axis="${joint_wrist_axis}" />
+  <link name="connector" />
+
+  <joint_template name="wrist" type="fixed" parent="forearm" child="connector" xyz="${joint_wrist_origin_xyz}" rpy="${joint_wrist_origin_rpy}" axis="${joint_wrist_axis}" prismatic_limit="none"/>
+
+   <joint_template name="wrist_connector" type="prismatic" parent="connector" child="hand" xyz="${joint_wrist_connector_origin_xyz}" rpy="${joint_wrist_connector_origin_rpy}" axis="${joint_wrist_connector_axis}" prismatic_limit="${joint_wrist_connector_upperlimit}"/>
 
 
 <link name="end">
@@ -195,7 +207,7 @@
     </inertial>
   </link>
 
-  <joint_template name="fixed_end" type="fixed" parent="hand" child="end" xyz="${joint_fixed_end_origin_xyz}" rpy="${joint_fixed_end_origin_rpy}" axis="${joint_fixed_end_axis}" />
+  <joint_template name="fixed_end" type="fixed" parent="hand" child="end" xyz="${joint_fixed_end_origin_xyz}" rpy="${joint_fixed_end_origin_rpy}" axis="${joint_fixed_end_axis}" prismatic_limit="none"/>
 
 
 </robot>
