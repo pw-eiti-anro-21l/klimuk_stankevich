@@ -1,4 +1,4 @@
-calc_params:
+NONKDL_DKIN:
   ros__parameters:
     joint_elbow:
     - 0.5

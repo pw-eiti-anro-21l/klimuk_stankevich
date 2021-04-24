@@ -20,7 +20,7 @@ class CalculateParamsNode(Node):
         self.declare_parameter("joint_elbow", None)
         self.declare_parameter("joint_wrist", None)
         self.declare_parameter("joint_fixed_end", None)
-
+        self.declare_parameter("joint_wrist_connector", None)
 
     def spin(self):
         while rclpy.ok():
@@ -35,7 +35,8 @@ def get_joints_parameters(node):
     elbow = node.get_parameter('joint_elbow').value
     wrist = node.get_parameter('joint_wrist').value
     fixed_end = node.get_parameter('joint_fixed_end').value
-    return fixed, shoulder, elbow, wrist, fixed_end
+    wrist_conn = node.get_parameter('joint_wrist_connector').value
+    return fixed, shoulder, elbow, wrist, fixed_end, wrist_conn
 
         
 def main(args=None):
@@ -56,11 +57,14 @@ def main(args=None):
     elbow_param = Parameter('joint_elbow', Parameter.Type.DOUBLE_ARRAY, result_table[1])
     wrist_param = Parameter('joint_wrist', Parameter.Type.DOUBLE_ARRAY, result_table[2])
     fixed_end_param = Parameter('joint_fixed_end', Parameter.Type.DOUBLE_ARRAY, result_table[3])
-    node.set_parameters([shoulder_param, elbow_param, wrist_param, fixed_end_param])
+    const_wrist_conn_array = [0.0, 0.0, 0.0, 0.0, 1.578, 0.0, 0.0, 0.0, 0.0]
+    wrist_conn_param = Parameter('joint_wrist_connector', Parameter.Type.DOUBLE_ARRAY, const_wrist_conn_array)
+    node.set_parameters([shoulder_param, elbow_param, wrist_param, fixed_end_param, wrist_conn_param])
 
     joints_params_list = get_joints_parameters(node)
 
-    write_params_to_yaml(joints_params_list, "./custom_urdf/config/joints_params.yaml")
+    write_params_to_yaml(joints_params_list, "./custom_urdf/config/joints_params.yaml", "calc_params")
+    write_params_to_yaml(joints_params_list, "./custom_urdf/config/nonkdl_params.yaml", "NONKDL_DKIN")
     
     print("Joints parameters has been written to yaml file")
     print("You can now launch view_robot_launch.py")

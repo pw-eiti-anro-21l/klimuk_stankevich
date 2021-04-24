@@ -27,7 +27,9 @@ setup(
     entry_points={
         'console_scripts': [
         	'calc_params = custom_urdf.calculate_params_node:main',
-        	'calculate_joints_coordinates = custom_urdf.DHtoURDF:calculate_joints_coordinates'
+        	'calculate_joints_coordinates = custom_urdf.DHtoURDF:calculate_joints_coordinates',
+        	'NONKDL_DKIN = custom_urdf.NONKDL_DKIN:main',
+        	'quaternion = custom_urdf.quaternion.py'
         ],
     },
 )

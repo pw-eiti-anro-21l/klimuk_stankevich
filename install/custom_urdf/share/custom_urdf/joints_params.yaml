@@ -12,9 +12,9 @@ calc_params:
     - 1.0
     joint_fixed: null
     joint_fixed_end:
+    - -0.5
     - 0.0
     - 0.0
-    - 0.5
     - 0.0
     - 0.0
     - 0.0
@@ -24,7 +24,7 @@ calc_params:
     joint_shoulder:
     - 0.0
     - 0.0
-    - 1.3
+    - 5.0
     - 0.0
     - 0.0
     - 0.0
@@ -37,6 +37,16 @@ calc_params:
     - 0.0
     - 1.578
     - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    joint_wrist_connector:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.578
     - 0.0
     - 0.0
     - 0.0
