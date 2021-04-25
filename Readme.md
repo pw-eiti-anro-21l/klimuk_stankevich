@@ -17,9 +17,8 @@
 9. Wpisać polecenie `ros2 launch custom_urdf view_robot_launch.py `
 10. Zmieniając plik `params.yaml` (czyli zmieniając parametry DH) i ponownie uruchamiając launch'e dostajemy wizualizację o aktualnych (zmienionych parametrach):
 11. Aby zwizualizować działanie węzłów **KDL_DKIN** i **NONKDL_DKIN** należy:
-  - W programie Rviz w lewym dolnym rogu wcisnąc `add`
-  - W nowopowstałym oknie wybrać `By topic`
-  - Wybrać potrzebny temat
+  - W programie Rviz wcisnąć `CTRL + O`
+  - Przejść do folderu **config** i wybrać plik `rviz_config.rviz`
 13. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
 ### Wyniki(Zielona strzałka - węzeł KDL, niebieska - NONKDL):
