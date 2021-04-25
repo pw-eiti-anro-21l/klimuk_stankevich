@@ -1,7 +1,7 @@
 KDL_DKIN:
   ros__parameters:
     joint_elbow:
-    - 2.0
+    - 0.5
     - 0.0
     - 0.0
     - 0.0
@@ -12,7 +12,7 @@ KDL_DKIN:
     - 1.0
     joint_fixed: null
     joint_fixed_end:
-    - -3.0
+    - -0.5
     - 0.0
     - 0.0
     - 0.0
@@ -24,7 +24,7 @@ KDL_DKIN:
     joint_shoulder:
     - 0.0
     - 0.0
-    - 5.0
+    - 1.5
     - 0.0
     - 0.0
     - 0.0
@@ -32,7 +32,7 @@ KDL_DKIN:
     - 0.0
     - 1.0
     joint_wrist:
-    - 3.0
+    - 0.5
     - 0.0
     - 0.0
     - 1.578

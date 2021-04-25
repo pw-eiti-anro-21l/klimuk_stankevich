@@ -7,6 +7,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import JointState
 from quaternion import *
+from matrix import *
 
 
 class NONKDL_DKIN(Node):
@@ -25,20 +26,6 @@ class NONKDL_DKIN(Node):
         self.declare_parameter("joint_fixed_end", None)
         self.declare_parameter("joint_wrist_connector", None)
 
-        # self.declare_parameter('received_timestamp', [])
-        # self.declare_parameter('received_joint_state_elbow_pos', '')
-        # self.declare_parameter('received_joint_state_shoulder_pos', '')
-        # self.declare_parameter('received_joint_state_wrist_connector_pos', '')
-        
-        # self.declare_parameter('calculated_timestamp', [])
-        # self.declare_parameter('calculated__id_arm', ['arm', 'forearm'])
-        # self.declare_parameter('calculated_pose_arm', [])
-        # self.declare_parameter('calculated__id_body', ['body', 'arm'])
-        # self.declare_parameter('calculated_pose_body', [])
-        # self.declare_parameter('calculated__id_connector', ['connector', 'hand'])
-        # self.declare_parameter('calculated_pose_connector', [])
-
-
 
 
     def listener_callback(self, msg):
@@ -49,24 +36,57 @@ class NONKDL_DKIN(Node):
         #position of wrist connector
         wrist_connector_pos = msg.position[2]
 
+
+        T0 = Translation()
+        T0.set_matrix_z(self.get_parameter('joint_shoulder').value[2])
+        T1 = Translation()
+        T1.set_matrix_yawl(shoulder_pos)
+        T2 = Translation()
+        T2.set_matrix_x(self.get_parameter('joint_elbow').value[0])
+        T3 = Translation()
+        T3.set_matrix_yawl(elbow_pos)
+        T4 = Translation()
+        T4.set_matrix_x(self.get_parameter('joint_wrist').value[0])
+        T5 = Translation()
+        T5.set_matrix_z(self.get_parameter('joint_fixed_end').value[0])
+        T6 = Translation()
+        T6.set_matrix_z(wrist_connector_pos)
+
+
+        T01 = T0 * T1
+        T02 = T01 * T2 
+        T03 = T02 * T3
+        T04 = T03 * T4
+        T05 = T04 * T5
+        T06 = T05 * T6
+
         q_shoulder = Quaternion()
-        q_shoulder.calculate(0.0, 0.0, shoulder_pos)
+        q_shoulder.calculate(T01.calculate_roll(),T01.calculate_pitch(), T01.calculate_yawl())
+
+        q_elbow = Quaternion()
+        q_elbow.calculate(T03.calculate_roll(),T03.calculate_pitch(),T03.calculate_yawl())
+
+        q_wrist = Quaternion()
+        q_wrist.calculate(T04.calculate_roll(),T04.calculate_pitch(),T04.calculate_yawl())
+
+        q_hand = Quaternion()
+        q_hand.calculate(T06.calculate_roll(),T06.calculate_pitch(),T06.calculate_yawl())
 
         #create PoseStamped message
         self.posestamped_msg = PoseStamped()
-        self.posestamped_msg.header.frame_id = 'body'
+        self.posestamped_msg.header.frame_id = 'world'
         self.posestamped_msg.header.stamp = self.get_clock().now().to_msg()
 
         #origin position of the shoulder, must be read from urdf:
-        self.posestamped_msg.pose.position.x = self.get_parameter('joint_shoulder').value[0]
-        self.posestamped_msg.pose.position.y = self.get_parameter('joint_shoulder').value[1]
-        self.posestamped_msg.pose.position.z = self.get_parameter('joint_shoulder').value[2]
+        self.posestamped_msg.pose.position.x = T06.matrix[0][3]
+        self.posestamped_msg.pose.position.y = T06.matrix[1][3]
+        self.posestamped_msg.pose.position.z = T06.matrix[2][3]
 
         #set orientation values
-        self.posestamped_msg.pose.orientation.x = q_shoulder.x
-        self.posestamped_msg.pose.orientation.y = q_shoulder.y
-        self.posestamped_msg.pose.orientation.z = q_shoulder.z
-        self.posestamped_msg.pose.orientation.w = q_shoulder.w
+        self.posestamped_msg.pose.orientation.x = q_hand.x
+        self.posestamped_msg.pose.orientation.y = q_hand.y
+        self.posestamped_msg.pose.orientation.z = q_hand.z
+        self.posestamped_msg.pose.orientation.w = q_hand.w
 
         self.nonkdl_pose_publisher.publish(self.posestamped_msg)
 
@@ -81,9 +101,9 @@ def main(args=None):
     thread = threading.Thread(target=rclpy.spin, args=(node, ), daemon=True)
     thread.start()
     rate = node.create_rate(10)
+    print("NONKDL_DKN node is working")
     try:
         while rclpy.ok():
-            print("NONKDL_DKN node is working")
             rate.sleep()
     except KeyboardInterrupt:
         pass
