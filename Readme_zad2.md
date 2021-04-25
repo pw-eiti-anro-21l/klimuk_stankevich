@@ -24,4 +24,4 @@
 
 
 ### RQT graf systemu 
-![rqt graph](./images/ANRO_zadanie2.png)
+![rqt graph](./images/zad2/ANRO_zadanie2.png)
