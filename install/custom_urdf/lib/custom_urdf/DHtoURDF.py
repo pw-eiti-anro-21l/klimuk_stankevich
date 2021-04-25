@@ -102,3 +102,28 @@ def write_params_to_yaml(joint_params, path_to_file, node_name):
 	with open(path_to_file, "w") as file_2:
 		file_2.writelines(data)
 
+def write_params_to_yaml_for_kdl(joint_params, table_params, path_to_file, node_name):
+	joints_dict = [{"joint_fixed": joint_params[0], "joint_shoulder": joint_params[1],
+					"joint_elbow": joint_params[2], "joint_wrist": joint_params[3],
+					"joint_fixed_end": joint_params[4], "joint_wrist_connector": joint_params[5],
+					"table_row_1": table_params[0], "table_row_2": table_params[1],
+					"table_row_3": table_params[2]}]
+	f = open(path_to_file, "w")
+	string_to_write = node_name + ":\n"
+	f.write(string_to_write)
+	f.write("  ros__parameters:\n")
+	f.close()
+	with open(path_to_file, 'a') as file:
+		documents = yaml.dump_all([joints_dict], file, indent=4)
+	with open(path_to_file, "r") as file_2:
+		data = file_2.readlines()
+	string_to_change = data[2]
+	new_string = ""
+	for i in range(0, len(string_to_change) - 1):
+		if i == 0:
+			new_string += " "
+		else:
+			new_string += string_to_change[i]
+	data[2] = new_string + "\n"
+	with open(path_to_file, "w") as file_2:
+		file_2.writelines(data)

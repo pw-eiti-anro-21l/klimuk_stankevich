@@ -7,6 +7,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import JointState
 from quaternion import *
+from PyKDL import *
 
 class KDL_DKIN(Node):
     def __init__(self):
@@ -31,20 +32,23 @@ class KDL_DKIN(Node):
         elbow_pos = msg.position[1]
         #position of wrist connector
         wrist_connector_pos = msg.position[2]
-        self.get_logger().info('Publishing: "%s"' % msg.position)
+        
+        vector = Vector(0.0, 0.0, 0.0)
+        rotation = Rotation(1, 0, 0, 0, 1, 0, 0, 0, 1)
+        a = HD(5, 0, 1, 1.578)
+        print(a)
 
 
 def main(args=None):
     global node
     rclpy.init(args=args)
     node = KDL_DKIN()
-
     thread = threading.Thread(target=rclpy.spin, args=(node, ), daemon=True)
     thread.start()
     rate = node.create_rate(10)
+    print("KDL_DKN node is working")
     try:
         while rclpy.ok():
-            print("KDL_DKN node is working")
             rate.sleep()
     except KeyboardInterrupt:
         pass
