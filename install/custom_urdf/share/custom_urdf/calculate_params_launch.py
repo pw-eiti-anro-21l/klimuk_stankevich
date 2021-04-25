@@ -11,7 +11,7 @@ def generate_launch_description():
     config = os.path.join(bringup_dir, 'params.yaml')
     start_calc_params_cmd = Node(
                 package='custom_urdf',
-                # prefix='gnome-terminal --',
+                prefix='gnome-terminal --',
                 executable='calc_params',
                 name='calc_params',
                 parameters= [config])
