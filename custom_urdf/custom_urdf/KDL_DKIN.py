@@ -36,45 +36,26 @@ class KDL_DKIN(Node):
         elbow_pos = msg.position[1]
         #position of wrist connector
         wrist_connector_pos = msg.position[2]
-        init_pos = Vector(0.0, 0.0, 0.0)
-        init_rot = Rotation(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
-        frame = Frame(init_rot, init_pos)
-
-        #angle of shoulder: 
-        shoulder_pos = msg.position[0]
-        #angle of elbow:
-        elbow_pos = msg.position[1]
-        #position of wrist connector
-        wrist_connector_pos = msg.position[2]
         init_pos = Vector(0,0,0)
         init_rot = Rotation(1,0,0,0,1,0,0,0,1)
         frame = Frame(init_rot, init_pos)
 
-        #1 step
+        #Position calculation:
         frame.p += Vector(self.get_parameter('joint_shoulder').value[0],self.get_parameter('joint_shoulder').value[1],self.get_parameter('joint_shoulder').value[2])
-        #2 step
-        frame.M.DoRotZ(shoulder_pos)
-        #3 step
-        #frame.p += Vector(self.get_parameter('joint_elbow').value[0],self.get_parameter('joint_elbow').value[1],self.get_parameter('joint_elbow').value[2])
 
-        #4 step
         rotmat = Rotation()
         rotmat.DoRotZ(shoulder_pos)
-        #newFrameP = rotmat*frame.p
-        #frame.p = newFrameP
 
-        #5 step
-        frame.M.DoRotZ(elbow_pos)
-        #6 step
-        #frame.p += Vector(self.get_parameter('joint_wrist').value[0],self.get_parameter('joint_wrist').value[1],self.get_parameter('joint_wrist').value[2])
-
-        #7 step
         rotmat2 = Rotation()
         rotmat2.DoRotZ(elbow_pos)
-        #newFrameP = rotmat*Vector(1,0,1.5)
-        p1 = Vector(self.get_parameter('joint_elbow').value[0]*cos(elbow_pos),self.get_parameter('joint_elbow').value[0]*sin(elbow_pos),self.get_parameter('joint_shoulder').value[2])
-        d = Vector(self.get_parameter('joint_wrist').value[0]*cos(shoulder_pos),self.get_parameter('joint_wrist').value[0]*sin(shoulder_pos),0)
-        frame.p = rotmat*p1 + d
+
+        p1 = rotmat2*Vector(self.get_parameter('joint_wrist').value[0],0,self.get_parameter('joint_shoulder').value[2])
+        d = rotmat*Vector(self.get_parameter('joint_elbow').value[0],self.get_parameter('joint_elbow').value[1],self.get_parameter('joint_elbow').value[2])
+        frame.p = rotmat*p1 + d + Vector(0,0,self.get_parameter('joint_fixed_end').value[0]) + Vector(0,0,wrist_connector_pos)
+
+        #Orientation calculation:
+        frame.M.DoRotZ(shoulder_pos)
+        frame.M.DoRotZ(elbow_pos)
 
         q = frame.M.GetQuaternion()
 
@@ -95,8 +76,6 @@ class KDL_DKIN(Node):
         self.posestamped_msg.pose.orientation.w = q[3]
 
         self.kdl_pose_publisher.publish(self.posestamped_msg)
-
-        # print(frame.p.x())
 
 
 def main(args=None):
