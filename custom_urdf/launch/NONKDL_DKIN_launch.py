@@ -12,7 +12,6 @@ def generate_launch_description():
 
     start_NONKDL_DKIN_cmd = Node(
                 package='custom_urdf',
-                prefix='gnome-terminal --',
                 executable='NONKDL_DKIN',
                 name='NONKDL_DKIN',
                 output='screen',

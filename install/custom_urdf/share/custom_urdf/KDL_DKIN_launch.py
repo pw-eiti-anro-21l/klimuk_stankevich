@@ -12,7 +12,6 @@ def generate_launch_description():
 
     start_KDL_DKIN_cmd = Node(
                 package='custom_urdf',
-                prefix='gnome-terminal --',
                 executable='KDL_DKIN',
                 name='KDL_DKIN',
                 output='screen',
