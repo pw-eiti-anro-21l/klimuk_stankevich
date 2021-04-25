@@ -15,9 +15,9 @@
 9. W tym momencie aktualne dane z pliku `joint_params.yaml` zostaja zaimportowane do pliku `custom.urdf.xacro` i xacro-plik zostaje przekonwertowany na aktualny URDF, na podstawie którego RVIZ tworzy wizualizację.
 10. Zmieniając plik `params.yaml` (czyli zmieniając parametry DH) i ponownie uruchamiając launch'e dostajemy wizualizację o aktualnych (zmienionych parametrach):
 
-![dh1](./zad2/images/DH1.png) ![rviz1](./zad2/images/RVIZ1.png)
+![dh1](./images/zad2/DH1.png) ![rviz1](./images/zad2/RVIZ1.png)
  
-![dh2](./zad2/images/DH2.png) ![rviz2](./zad2/images/RVIZ2.png)
+![dh2](./images/zad2/DH2.png) ![rviz2](./images/zad2/RVIZ2.png)
 
 11. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
