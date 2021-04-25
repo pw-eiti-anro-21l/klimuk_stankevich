@@ -21,3 +21,6 @@
   - W nowopowstałym oknie wybrać `By topic`
   - Wybrać potrzebny temat
 13. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
+
+### RQT graf systemu 
+![rqt graph](./images/zad3/rqt_graph.png)
