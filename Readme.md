@@ -22,5 +22,8 @@
   - Wybrać potrzebny temat
 13. Dla zakończenia pracy sytemu należy wcisnąć `CTRL+C` i zamknąć otwarte terminale
 
+### Wyniki(Zielona strzałka - węzeł KDL, niebieska - NONKDL):
+![arrows_1](./images/zad3/arrows_1.png)     ![arrows_2](./images/zad3/arrows_2.png)
+
 ### RQT graf systemu 
 ![rqt graph](./images/zad3/rqt_graph.png)
