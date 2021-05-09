@@ -73,7 +73,6 @@ def generate_launch_description():
                 name='Trajectory_poster',
                 output='screen',
                 parameters= [trajectory_config])
-      
   
     # Create the launch description and populate
     ld = LaunchDescription()
