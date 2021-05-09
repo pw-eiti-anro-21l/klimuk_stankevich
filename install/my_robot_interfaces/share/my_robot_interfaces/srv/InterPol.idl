@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from my_robot_interfaces/srv/InterPol.srv
+// generated code does not contain a copyright notice
+
+
+module my_robot_interfaces {
+  module srv {
+    struct InterPol_Request {
+      double shoulder;
+
+      double elbow;
+
+      double wrist;
+
+      double time;
+
+      string velocity;
+    };
+    struct InterPol_Response {
+      boolean success;
+
+      string description;
+    };
+  };
+};

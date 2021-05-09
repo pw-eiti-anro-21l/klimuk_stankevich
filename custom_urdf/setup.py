@@ -30,7 +30,12 @@ setup(
         	'calculate_joints_coordinates = custom_urdf.DHtoURDF:calculate_joints_coordinates',
         	'NONKDL_DKIN = custom_urdf.NONKDL_DKIN:main',
         	'quaternion = custom_urdf.quaternion.py',
-        	'KDL_DKIN = custom_urdf.KDL_DKIN:main'
+        	'KDL_DKIN = custom_urdf.KDL_DKIN:main',
+        	'service = custom_urdf.jint:main',
+        	'client = custom_urdf.jint_control_srv:main',
+        	'Trajectory_poster = custom_urdf.Trajectory_poster:main',
+        	'service2 = custom_urdf.oint:main',
+        	'client2 = custom_urdf.oint_control_srv:main'
         ],
     },
 )
