@@ -28,7 +28,7 @@
 1. Uruchomić serwer `ros2 run custom_urdf service2`
 2. Uruchomić rviz za pomocą launch pliku `ros2 run custom_urdf oint_launch.py`
 3. Wymusić interpolację poprzez klienta `ros2 run custom_urdf client2 <nowa_pozycja_x> <nowa_pozycja_y> <nowa_pozycja_z> <nowa_orientacja_x> <nowa_orientacja_y> <nowa_orientacja_z> <nowa_orientacja_w> <czas_interpolacji>`
-4. 
+
 ![](./images/zad4/oint_rviz.png)
 
 #### RQT:
