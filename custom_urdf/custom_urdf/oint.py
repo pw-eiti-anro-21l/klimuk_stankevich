@@ -15,6 +15,10 @@ from time import sleep
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
 
+global delete_old_trajectory_flag
+
+delete_old_trajectory = False
+
 class oint(Node):
 	def __init__(self):
 		super().__init__('oint')
@@ -37,6 +41,7 @@ class oint(Node):
 
 
 	def interpol2_callback(self, request, response):
+		global delete_old_trajectory_flag
 		response.description = ''
 		if  request.time <= 0:
 			response.description += 'Requested time must be postive number. '
@@ -77,6 +82,9 @@ class oint(Node):
 			orw_step = orw_distance/num_of_moves
 
 			for i in range(0,num_of_moves):
+				if delete_old_trajectory_flag == True:
+					self.delete_old_trajectory()
+
 				actual_posx += posx_step
 				actual_posy += posy_step
 				actual_posz += posz_step
@@ -97,13 +105,9 @@ class oint(Node):
 
 				self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
 				self.post_actual_parameters()
+				self.print_trajectory()
 				sleep_time = 0.00000001
 				sleep(sleep_time)
-
-
-			
-
-
 
 			response.success = True
 			response.description = "Interpolation completed."
@@ -127,6 +131,10 @@ class oint(Node):
 		self.posestamped_msg.pose.orientation.y = self.get_parameter("actual_ory").value
 		self.posestamped_msg.pose.orientation.z = self.get_parameter("actual_orz").value
 		self.posestamped_msg.pose.orientation.w = self.get_parameter("actual_orw").value
+
+		self.publisher_.publish(self.posestamped_msg)
+
+	def print_trajectory(self):
 
 		point = Point()
 		point.x = self.get_parameter("actual_posx").value
@@ -158,10 +166,17 @@ class oint(Node):
 		self.markers.markers.append(marker)
 		self.marker_publisher.publish(self.markers)
 
+	def delete_old_trajectory(self):
+		global delete_old_trajectory_flag
+		marker = Marker()
+		marker.action = marker.DELETEALL
+		self.markers.markers.append(marker)
+		self.marker_publisher.publish(self.markers)
+		delete_old_trajectory_flag = False
 
-		self.publisher_.publish(self.posestamped_msg)
 
 def main(args=None):
+	global delete_old_trajectory_flag
 	print("Oint node is working")
 	rclpy.init(args=args)
 	node = oint()
@@ -171,6 +186,7 @@ def main(args=None):
 	try:
 		while rclpy.ok():
 			node.post_actual_parameters()
+			delete_old_trajectory_flag = True
 			rate.sleep()
 	except KeyboardInterrupt:
 		pass
