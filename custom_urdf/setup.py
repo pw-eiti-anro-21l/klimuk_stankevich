@@ -35,7 +35,8 @@ setup(
         	'client = custom_urdf.jint_control_srv:main',
         	'Trajectory_poster = custom_urdf.Trajectory_poster:main',
         	'service2 = custom_urdf.oint:main',
-        	'client2 = custom_urdf.oint_control_srv:main'
+        	'client2 = custom_urdf.oint_control_srv:main',
+        	'IKIN = custom_urdf.IKIN:main',
         ],
     },
 )

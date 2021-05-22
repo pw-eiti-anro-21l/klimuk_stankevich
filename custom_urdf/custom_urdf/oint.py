@@ -25,13 +25,13 @@ class oint(Node):
 		namespace = ""
 
 		self.srv = self.create_service(InterPol2, 'interpol2', self.interpol2_callback)
-		self.publisher_ = self.create_publisher(PoseStamped, '/oint_position', 10)
+		self.publisher_ = self.create_publisher(PoseStamped, '/oint_position', 1)
 		self.marker_publisher = self.create_publisher(MarkerArray, '/marker_topic_oint', 1)
 		self.markers = MarkerArray()
 
-		self.declare_parameter("actual_posx", 0.0)
-		self.declare_parameter("actual_posy", 0.0)
-		self.declare_parameter("actual_posz", 0.0)
+		self.declare_parameter("actual_posx", 1.0)
+		self.declare_parameter("actual_posy", 0.000001)
+		self.declare_parameter("actual_posz", 1.0)
 
 		self.declare_parameter("actual_orx", 0.0)
 		self.declare_parameter("actual_ory", 0.0)
@@ -45,6 +45,18 @@ class oint(Node):
 		response.description = ''
 		if  request.time <= 0:
 			response.description += 'Requested time must be postive number. '
+		if request.posx < 0:
+			if request.posy >= 0:
+				if (request.posy - 0.5)**2 + request.posx**2 > 0.5**2:
+					response.description += 'Requested position is unreachable'
+			if request.posy < 0:
+				if (request.posy + 0.5)**2 + request.posx**2 > 0.5**2:
+					response.description += 'Requested position is unreachable'
+		if request.posx >= 0:
+			if request.posy**2 + request.posx**2 > 1:
+				response.description += 'Requested position is unreachable'
+		if request.posz < 1 or request.posz > 1.5:
+				response.description += 'Requested position is unreachable'
 		if response.description:
 			response.success = False
 			return response
@@ -105,7 +117,7 @@ class oint(Node):
 
 				self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
 				self.post_actual_parameters()
-				self.print_trajectory()
+				# self.print_trajectory()
 				sleep_time = 0.00000001
 				sleep(sleep_time)
 
@@ -118,7 +130,7 @@ class oint(Node):
 	def post_actual_parameters(self):
 		#create PoseStamped message
 		self.posestamped_msg = PoseStamped()
-		self.posestamped_msg.header.frame_id = 'map'
+		self.posestamped_msg.header.frame_id = 'world'
 		self.posestamped_msg.header.stamp = self.get_clock().now().to_msg()
 
 		#origin position of the shoulder, must be read from urdf:
