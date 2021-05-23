@@ -24,6 +24,7 @@ class OintControlSrv(Node):
         self.req.y = float(sys.argv[6])
 
         self.req.time = float(sys.argv[7])
+        self.req.shape = str(sys.argv[8])
         self.future = self.cli.call_async(self.req)
 
 

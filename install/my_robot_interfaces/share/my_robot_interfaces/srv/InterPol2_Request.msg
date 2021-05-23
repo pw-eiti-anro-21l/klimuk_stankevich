@@ -5,3 +5,4 @@ float64 r
 float64 p
 float64 y
 float64 time
+string shape

@@ -8,6 +8,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Include directives for member types
+// Member `shape`
+#include "rosidl_runtime_c/string_functions.h"
+
 bool
 my_robot_interfaces__srv__InterPol2_Request__init(my_robot_interfaces__srv__InterPol2_Request * msg)
 {
@@ -21,6 +25,11 @@ my_robot_interfaces__srv__InterPol2_Request__init(my_robot_interfaces__srv__Inte
   // p
   // y
   // time
+  // shape
+  if (!rosidl_runtime_c__String__init(&msg->shape)) {
+    my_robot_interfaces__srv__InterPol2_Request__fini(msg);
+    return false;
+  }
   return true;
 }
 
@@ -37,6 +46,8 @@ my_robot_interfaces__srv__InterPol2_Request__fini(my_robot_interfaces__srv__Inte
   // p
   // y
   // time
+  // shape
+  rosidl_runtime_c__String__fini(&msg->shape);
 }
 
 my_robot_interfaces__srv__InterPol2_Request *
@@ -151,7 +162,8 @@ my_robot_interfaces__srv__InterPol2_Request__Sequence__destroy(my_robot_interfac
 
 // Include directives for member types
 // Member `description`
-#include "rosidl_runtime_c/string_functions.h"
+// already included above
+// #include "rosidl_runtime_c/string_functions.h"
 
 bool
 my_robot_interfaces__srv__InterPol2_Response__init(my_robot_interfaces__srv__InterPol2_Response * msg)

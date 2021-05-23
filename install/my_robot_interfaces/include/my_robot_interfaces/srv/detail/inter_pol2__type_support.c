@@ -12,6 +12,10 @@
 #include "my_robot_interfaces/srv/detail/inter_pol2__struct.h"
 
 
+// Include directives for member types
+// Member `shape`
+#include "rosidl_runtime_c/string_functions.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -31,7 +35,7 @@ void InterPol2_Request__rosidl_typesupport_introspection_c__InterPol2_Request_fi
   my_robot_interfaces__srv__InterPol2_Request__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember InterPol2_Request__rosidl_typesupport_introspection_c__InterPol2_Request_message_member_array[7] = {
+static rosidl_typesupport_introspection_c__MessageMember InterPol2_Request__rosidl_typesupport_introspection_c__InterPol2_Request_message_member_array[8] = {
   {
     "posx",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_DOUBLE,  // type
@@ -136,13 +140,28 @@ static rosidl_typesupport_introspection_c__MessageMember InterPol2_Request__rosi
     NULL,  // get_const(index) function pointer
     NULL,  // get(index) function pointer
     NULL  // resize(index) function pointer
+  },
+  {
+    "shape",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(my_robot_interfaces__srv__InterPol2_Request, shape),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
   }
 };
 
 static const rosidl_typesupport_introspection_c__MessageMembers InterPol2_Request__rosidl_typesupport_introspection_c__InterPol2_Request_message_members = {
   "my_robot_interfaces__srv",  // message namespace
   "InterPol2_Request",  // message name
-  7,  // number of fields
+  8,  // number of fields
   sizeof(my_robot_interfaces__srv__InterPol2_Request),
   InterPol2_Request__rosidl_typesupport_introspection_c__InterPol2_Request_message_member_array,  // message members
   InterPol2_Request__rosidl_typesupport_introspection_c__InterPol2_Request_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -190,7 +209,8 @@ ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspecti
 
 // Include directives for member types
 // Member `description`
-#include "rosidl_runtime_c/string_functions.h"
+// already included above
+// #include "rosidl_runtime_c/string_functions.h"
 
 #ifdef __cplusplus
 extern "C"

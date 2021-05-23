@@ -17,6 +17,10 @@ extern "C"
 
 // Constants defined in the message
 
+// Include directives for member types
+// Member 'shape'
+#include "rosidl_runtime_c/string.h"
+
 // Struct defined in srv/InterPol2 in the package my_robot_interfaces.
 typedef struct my_robot_interfaces__srv__InterPol2_Request
 {
@@ -27,6 +31,7 @@ typedef struct my_robot_interfaces__srv__InterPol2_Request
   double p;
   double y;
   double time;
+  rosidl_runtime_c__String shape;
 } my_robot_interfaces__srv__InterPol2_Request;
 
 // Struct for a sequence of my_robot_interfaces__srv__InterPol2_Request.
@@ -44,7 +49,8 @@ typedef struct my_robot_interfaces__srv__InterPol2_Request__Sequence
 
 // Include directives for member types
 // Member 'description'
-#include "rosidl_runtime_c/string.h"
+// already included above
+// #include "rosidl_runtime_c/string.h"
 
 // Struct defined in srv/InterPol2 in the package my_robot_interfaces.
 typedef struct my_robot_interfaces__srv__InterPol2_Response

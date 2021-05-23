@@ -19,6 +19,8 @@ module my_robot_interfaces {
       double y;
 
       double time;
+
+      string shape;
     };
     struct InterPol2_Response {
       boolean success;

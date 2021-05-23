@@ -27,11 +27,11 @@ inline const char * name<my_robot_interfaces::srv::InterPol2_Request>()
 
 template<>
 struct has_fixed_size<my_robot_interfaces::srv::InterPol2_Request>
-  : std::integral_constant<bool, true> {};
+  : std::integral_constant<bool, false> {};
 
 template<>
 struct has_bounded_size<my_robot_interfaces::srv::InterPol2_Request>
-  : std::integral_constant<bool, true> {};
+  : std::integral_constant<bool, false> {};
 
 template<>
 struct is_message<my_robot_interfaces::srv::InterPol2_Request>

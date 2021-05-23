@@ -44,12 +44,13 @@ struct InterPol2_Request_
       this->p = 0.0;
       this->y = 0.0;
       this->time = 0.0;
+      this->shape = "";
     }
   }
 
   explicit InterPol2_Request_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+  : shape(_alloc)
   {
-    (void)_alloc;
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
@@ -60,6 +61,7 @@ struct InterPol2_Request_
       this->p = 0.0;
       this->y = 0.0;
       this->time = 0.0;
+      this->shape = "";
     }
   }
 
@@ -85,6 +87,9 @@ struct InterPol2_Request_
   using _time_type =
     double;
   _time_type time;
+  using _shape_type =
+    std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other>;
+  _shape_type shape;
 
   // setters for named parameter idiom
   Type & set__posx(
@@ -127,6 +132,12 @@ struct InterPol2_Request_
     const double & _arg)
   {
     this->time = _arg;
+    return *this;
+  }
+  Type & set__shape(
+    const std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other> & _arg)
+  {
+    this->shape = _arg;
     return *this;
   }
 
@@ -191,6 +202,9 @@ struct InterPol2_Request_
       return false;
     }
     if (this->time != other.time) {
+      return false;
+    }
+    if (this->shape != other.shape) {
       return false;
     }
     return true;

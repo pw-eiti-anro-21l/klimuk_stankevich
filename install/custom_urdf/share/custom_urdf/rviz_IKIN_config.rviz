@@ -8,7 +8,6 @@ Panels:
         - /Status1
         - /Pose1
         - /Path2
-        - /Path2/Status1
       Splitter Ratio: 0.5
     Tree Height: 557
   - Class: rviz_common/Selection
@@ -141,7 +140,7 @@ Visualization Manager:
       Axes Length: 1
       Axes Radius: 0.10000000149011612
       Class: rviz_default_plugins/Pose
-      Color: 255; 25; 0
+      Color: 252; 233; 79
       Enabled: true
       Head Length: 0.15000000596046448
       Head Radius: 0.10000000149011612
@@ -253,7 +252,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.825484275817871
+      Distance: 5.7415971755981445
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -271,7 +270,7 @@ Visualization Manager:
       Pitch: 0.6053981184959412
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.400397539138794
+      Yaw: 1.3203976154327393
     Saved: ~
 Window Geometry:
   Displays:

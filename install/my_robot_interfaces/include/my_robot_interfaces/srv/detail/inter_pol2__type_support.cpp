@@ -37,7 +37,7 @@ void InterPol2_Request_fini_function(void * message_memory)
   typed_message->~InterPol2_Request();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember InterPol2_Request_message_member_array[7] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember InterPol2_Request_message_member_array[8] = {
   {
     "posx",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_DOUBLE,  // type
@@ -142,13 +142,28 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember InterPol2_Req
     nullptr,  // get_const(index) function pointer
     nullptr,  // get(index) function pointer
     nullptr  // resize(index) function pointer
+  },
+  {
+    "shape",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_STRING,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(my_robot_interfaces::srv::InterPol2_Request, shape),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
   }
 };
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers InterPol2_Request_message_members = {
   "my_robot_interfaces::srv",  // message namespace
   "InterPol2_Request",  // message name
-  7,  // number of fields
+  8,  // number of fields
   sizeof(my_robot_interfaces::srv::InterPol2_Request),
   InterPol2_Request_message_member_array,  // message members
   InterPol2_Request_init_function,  // function to initialize message memory (memory has to be allocated)

@@ -20,16 +20,32 @@ namespace srv
 namespace builder
 {
 
+class Init_InterPol2_Request_shape
+{
+public:
+  explicit Init_InterPol2_Request_shape(::my_robot_interfaces::srv::InterPol2_Request & msg)
+  : msg_(msg)
+  {}
+  ::my_robot_interfaces::srv::InterPol2_Request shape(::my_robot_interfaces::srv::InterPol2_Request::_shape_type arg)
+  {
+    msg_.shape = std::move(arg);
+    return std::move(msg_);
+  }
+
+private:
+  ::my_robot_interfaces::srv::InterPol2_Request msg_;
+};
+
 class Init_InterPol2_Request_time
 {
 public:
   explicit Init_InterPol2_Request_time(::my_robot_interfaces::srv::InterPol2_Request & msg)
   : msg_(msg)
   {}
-  ::my_robot_interfaces::srv::InterPol2_Request time(::my_robot_interfaces::srv::InterPol2_Request::_time_type arg)
+  Init_InterPol2_Request_shape time(::my_robot_interfaces::srv::InterPol2_Request::_time_type arg)
   {
     msg_.time = std::move(arg);
-    return std::move(msg_);
+    return Init_InterPol2_Request_shape(msg_);
   }
 
 private:
