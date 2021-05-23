@@ -80,6 +80,130 @@ class oint(Node):
 					sleep_time = 0.00000001
 					sleep(sleep_time)
 
+		if request.shape == 'ellipse':
+
+			# while True:
+			# 	actual_posx = self.get_parameter("actual_posx").value
+			# 	actual_posy = self.get_parameter("actual_posy").value
+			# 	actual_posz = self.get_parameter("actual_posz").value
+
+			# 	# if actual_posx != 1.0 or actual_posy != 0:
+			# 	# 	new_posx = Parameter('actual_posx', Parameter.Type.DOUBLE, 1.0)
+			# 	# 	new_posy = Parameter('actual_posy', Parameter.Type.DOUBLE, 0.0)
+			# 	# 	new_posz = Parameter('actual_posz', Parameter.Type.DOUBLE, 1.0)
+
+			# 	# 	new_orx = Parameter('actual_orx', Parameter.Type.DOUBLE, 0.0)
+			# 	# 	new_ory = Parameter('actual_ory', Parameter.Type.DOUBLE, 0.0)
+			# 	# 	new_orz = Parameter('actual_orz', Parameter.Type.DOUBLE, 0.0)
+			# 	# 	new_orw = Parameter('actual_orw', Parameter.Type.DOUBLE, 1.0)
+
+			# 	# 	self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
+			# 	# 	self.post_actual_parameters()
+			# 	# 	self.print_pose_trajectory()
+			# 	# 	sleep_time = 0.00000001
+			# 	# 	sleep(sleep_time)
+
+			# 	num_of_moves = 2001
+			# 	posx_step = 2/1000
+
+			# 	for i in range(0, num_of_moves):
+			# 		if i in range(0,1001):
+			# 			actual_posx -= round(posx_step, 3)
+			# 			if actual_posx < -1.0:
+			# 				actual_posx = -1.0
+			# 			if actual_posx > 1.0:
+			# 				actual_posx = 1.0
+			# 			value_2 = round(actual_posx**2 * (0.75**2), 3)
+			# 			value_1 = round(1 - value_2, 3)
+			# 			actual_posy = round(sqrt(value_1), 3)
+			# 		elif i in range(1001,2001):
+			# 			actual_posx += round(posx_step, 3)
+			# 			if actual_posx < -1.0:
+			# 				actual_posx = -1.0
+			# 			if actual_posx > 1.0:
+			# 				actual_posx = 1.0
+			# 			value_3 = round(actual_posx**2 * (0.75**2), 3)
+			# 			value_4 = round(1 - value_3, 3)
+			# 			actual_posy = round(-sqrt(value_4), 3)
+
+			# 		if actual_posx < -1.0:
+			# 			actual_posx = -1.0
+			# 		if actual_posx > 1.0:
+			# 			actual_posx = 1.0
+			# 		new_posx = Parameter('actual_posx', Parameter.Type.DOUBLE, round(actual_posx, 5))
+			# 		new_posy = Parameter('actual_posy', Parameter.Type.DOUBLE, round(actual_posy, 5))
+			# 		new_posz = Parameter('actual_posz', Parameter.Type.DOUBLE, round(actual_posz, 5))
+
+			# 		new_orx = Parameter('actual_orx', Parameter.Type.DOUBLE, 0.0)
+			# 		new_ory = Parameter('actual_ory', Parameter.Type.DOUBLE, 0.0)
+			# 		new_orz = Parameter('actual_orz', Parameter.Type.DOUBLE, 0.0)
+			# 		new_orw = Parameter('actual_orw', Parameter.Type.DOUBLE, 1.0)
+
+			# 		self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
+			# 		self.post_actual_parameters()
+			# 		self.print_pose_trajectory()
+			# 		sleep_time = 0.00000001
+			# 		sleep(sleep_time)
+
+			while True:
+				actual_posx = self.get_parameter("actual_posx").value
+				actual_posy = self.get_parameter("actual_posy").value
+				actual_posz = self.get_parameter("actual_posz").value
+
+				if actual_posx != 1.0 or actual_posy != 0:
+					new_posx = Parameter('actual_posx', Parameter.Type.DOUBLE, 1.0)
+					new_posy = Parameter('actual_posy', Parameter.Type.DOUBLE, 0.0)
+					new_posz = Parameter('actual_posz', Parameter.Type.DOUBLE, 1.0)
+
+					new_orx = Parameter('actual_orx', Parameter.Type.DOUBLE, 0.0)
+					new_ory = Parameter('actual_ory', Parameter.Type.DOUBLE, 0.0)
+					new_orz = Parameter('actual_orz', Parameter.Type.DOUBLE, 0.0)
+					new_orw = Parameter('actual_orw', Parameter.Type.DOUBLE, 1.0)
+
+					self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
+					self.post_actual_parameters()
+					self.print_pose_trajectory()
+					sleep_time = 0.00000001
+					sleep(sleep_time)
+
+				num_of_moves = 2001
+				posx_step = 2/1001
+
+				for i in range(0, num_of_moves):
+					if i in range(0,1001):
+						actual_posx -= posx_step
+						if actual_posx < -1.0:
+							actual_posx = -1.0
+						if actual_posx > 1.0:
+							actual_posx = 1.0
+						actual_posy = sqrt((1-actual_posx**2) * (0.75**2))
+					elif i in range(1001,2001):
+						actual_posx += posx_step
+						if actual_posx < -1.0:
+							actual_posx = -1.0
+						if actual_posx > 1.0:
+							actual_posx = 1.0
+						actual_posy = -sqrt((1-actual_posx**2) * (0.75**2))
+
+					if actual_posx < -1.0:
+						actual_posx = -1.0
+					if actual_posx > 1.0:
+						actual_posx = 1.0
+					new_posx = Parameter('actual_posx', Parameter.Type.DOUBLE, actual_posx)
+					new_posy = Parameter('actual_posy', Parameter.Type.DOUBLE, actual_posy)
+					new_posz = Parameter('actual_posz', Parameter.Type.DOUBLE, actual_posz)
+
+					new_orx = Parameter('actual_orx', Parameter.Type.DOUBLE, 0.0)
+					new_ory = Parameter('actual_ory', Parameter.Type.DOUBLE, 0.0)
+					new_orz = Parameter('actual_orz', Parameter.Type.DOUBLE, 0.0)
+					new_orw = Parameter('actual_orw', Parameter.Type.DOUBLE, 1.0)
+
+					self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
+					self.post_actual_parameters()
+					self.print_pose_trajectory()
+					sleep_time = 0.00000001
+					sleep(sleep_time)
+
 
 		response.description = ''
 		if  request.time <= 0:
