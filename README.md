@@ -9,10 +9,12 @@
 2. Przejść do foldera **klimuk_stankevich** za pomocą polecenia `cd klimuk_stankevich/`
 3. Wywołać `colcon_build`
 4. Wywołać `. install/local_setup.bash`
-#### Uruchomienie systemu:
-1. Uruchomić potrzebne węzły za pomocą polecenia `ros2 launch custom_urdf IKIN_and_oint_launch.py`
-2. Uruchomić rviz za pomocą launch pliku `ros2 launch custom_urdf rviz_for_IKIN_launch.py`
-3. Wymusić interpolację poprzez klienta `ros2 run custom_urdf client2 <nowa_wartość_stawu_shoulder> <nowa_wartość_stawu_elbow> <nowa_wartość_stawu_wrist> <czas_interpolacji> <przebieg_prędkości> <pożadana trajektoria(rectangle/elipse)>`
+5. Uruchomić potrzebne węzły za pomocą polecenia `ros2 launch custom_urdf IKIN_and_oint_launch.py`
+6. Uruchomić rviz za pomocą launch pliku `ros2 launch custom_urdf rviz_for_IKIN_launch.py`
+7. Wymusić interpolację poprzez klienta `ros2 run custom_urdf client2 <nowa_wartość_stawu_shoulder> <nowa_wartość_stawu_elbow> <nowa_wartość_stawu_wrist> <czas_interpolacji> <przebieg_prędkości> <pożadana trajektoria(rectangle/elipse)>`
+
+![](./images/zad5/1.png)
+![](./images/zad5/2.png)
 
 #### RQT:
 
