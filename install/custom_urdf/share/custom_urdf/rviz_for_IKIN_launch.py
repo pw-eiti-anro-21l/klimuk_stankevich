@@ -27,7 +27,7 @@ def generate_launch_description():
     
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         'rviz_config_file',
-        default_value=os.path.join(bringup_dir, 'view.rviz'),
+        default_value=os.path.join(bringup_dir, 'rviz_IKIN_config.rviz'),
         description='Full path to the RVIZ config file to use')  
     
     declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
