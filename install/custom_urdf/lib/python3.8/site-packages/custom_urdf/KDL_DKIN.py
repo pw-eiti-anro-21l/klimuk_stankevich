@@ -9,6 +9,14 @@ from sensor_msgs.msg import JointState
 from quaternion import *
 from PyKDL import *
 
+from nav_msgs.msg import Path
+from copy import deepcopy
+from math import *
+global node
+node = None
+global counter
+counter = 0
+
 class KDL_DKIN(Node):
     def __init__(self):
         super().__init__('KDL_DKIN')
@@ -17,7 +25,11 @@ class KDL_DKIN(Node):
         self.kdl_joint_state_subscription = self.create_subscription(JointState,'/joint_states', self.listener_callback, 10)
         self.kdl_pose_publisher = self.create_publisher(PoseStamped, '/kdl_pose_topic', 10)
         self.kdl_joint_state_subscription
+        self.path_publisher = self.create_publisher(Path, 'end_trajectory', 1)
+        self.path = Path()
+        self.previous_message = PoseStamped()
         
+
         self.declare_parameter("joint_fixed", None)
         self.declare_parameter("joint_shoulder", None)
         self.declare_parameter("joint_elbow", None)
@@ -30,6 +42,7 @@ class KDL_DKIN(Node):
         self.declare_parameter("table_row_3", None)
 
     def listener_callback(self, msg):
+        global counter
         #angle of shoulder: 
         shoulder_pos = msg.position[0]
         #angle of elbow:
@@ -75,8 +88,33 @@ class KDL_DKIN(Node):
         self.posestamped_msg.pose.orientation.z = q[2]
         self.posestamped_msg.pose.orientation.w = q[3]
 
-        self.kdl_pose_publisher.publish(self.posestamped_msg)
+        self.path.header.stamp = self.get_clock().now().to_msg()
+        self.path.header.frame_id = "world"
+        self.path.poses.append(deepcopy(self.posestamped_msg))
 
+        self.path_publisher.publish(self.path)
+
+        # if compare_poses(self.posestamped_msg, self.previous_message) == False:
+        #     self.path.header.stamp = self.get_clock().now().to_msg()
+        #     self.path.header.frame_id = "world"
+        #     self.path.poses.append(deepcopy(self.posestamped_msg))
+
+        #     self.path_publisher.publish(self.path)
+
+        # if counter == 50:
+        #     self.previous_message = self.posestamped_msg
+        #     counter = 0
+        # counter += 1
+        # self.kdl_pose_publisher.publish(self.posestamped_msg)
+
+# def compare_poses(msg1, msg2):
+#     result = True
+#     pose1 = [msg1.pose.position.x, msg1.pose.position.y, msg1.pose.position.z]
+#     pose2 = [msg2.pose.position.x, msg2.pose.position.y, msg2.pose.position.z]
+#     for i in range(0,3):
+#         if pose1[i] - pose2[i] != 0:
+#             result == False
+#     return result
 
 def main(args=None):
     global node

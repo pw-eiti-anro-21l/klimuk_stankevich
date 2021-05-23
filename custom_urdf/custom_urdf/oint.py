@@ -24,7 +24,7 @@ class oint(Node):
 
 		self.srv = self.create_service(InterPol2, 'interpol2', self.interpol2_callback)
 		self.publisher_ = self.create_publisher(PoseStamped, '/oint_position', 1)
-		self.path_publisher = self.create_publisher(Path, 'path_trajectory', 1)
+		self.path_publisher = self.create_publisher(Path, 'oint_trajectory', 1)
 		self.path = Path()
 
 		self.declare_parameter("actual_posx", 1.0)
@@ -111,7 +111,6 @@ class oint(Node):
 
 				self.set_parameters([new_posx, new_posy, new_posz, new_orx, new_ory, new_orz, new_orw])
 				self.post_actual_parameters()
-				# self.print_trajectory()
 				self.print_pose_trajectory()
 				sleep_time = 0.00000001
 				sleep(sleep_time)

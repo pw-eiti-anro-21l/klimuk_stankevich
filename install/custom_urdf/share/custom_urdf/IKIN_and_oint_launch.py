@@ -9,6 +9,7 @@ def generate_launch_description():
     bringup_dir = get_package_share_directory('custom_urdf')
     launch_dir = os.path.join(bringup_dir, 'launch')
     config = os.path.join(bringup_dir, 'ikin_params.yaml')
+    config_kdl = os.path.join(bringup_dir, 'kdl_params.yaml')
 
     start_IKIN_cmd = Node(
                 package='custom_urdf',
@@ -23,8 +24,16 @@ def generate_launch_description():
                 name='service2',
                 output='screen')
 
+    start_KDL_DKIN_cmd = Node(
+                package='custom_urdf',
+                executable='KDL_DKIN',
+                name='KDL_DKIN',
+                output='screen',
+                parameters= [config_kdl])
+
     ld = LaunchDescription()
 
+    ld.add_action(start_KDL_DKIN_cmd)
     ld.add_action(start_oint_srv_cmd)
     ld.add_action(start_IKIN_cmd)
     

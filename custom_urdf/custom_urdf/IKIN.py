@@ -54,28 +54,15 @@ class IKIN(Node):
         y = msg.pose.position.y
         z = msg.pose.position.z
 
-        #orientation
-        # value_1 = arm**2 + forearm**2 - x**2 - y**2
-        # value_2 = 2*arm*forearm
-        # value_3 = value_1 / value_2
-        # self.get_logger().info(str(value_3))
-        # elbow = pi - acos(round(value_3, 3))
-        # # elbow = acos((x**2 + y**2 - arm**2 - forearm**2)/2*arm*forearm)
-        # shoulder = -(atan(x/y) - atan(forearm*sin(elbow)/(arm + forearm*cos(elbow))))
-        # # shoulder = atan(y/x) - atan(forearm*sin(elbow)/(arm + forearm*cos(elbow)))
-        # wrist_connector = z - body + wrist
+        elbow = acos(round(( x**2 + y**2 - arm**2 - forearm**2 )/(2*arm*forearm), 5))
+        shoulder = atan(round((y/x),5)) - asin(round(forearm*sin(elbow)/sqrt(x**2 + y**2), 5))
 
-        if y >= 0:
-            elbow = acos(round(( x**2 + y**2 - arm**2 - forearm**2 )/(2*arm*forearm), 5))
-            shoulder = atan(round((y/x),5)) - atan(round(forearm*sin(elbow)/(arm + forearm*cos(elbow)), 5))
-        elif y < 0:
-            elbow = -acos(round(( x**2 + y**2 - arm**2 - forearm**2 )/(2*arm*forearm), 5))
-            shoulder = atan(round((y/x),5)) + atan(round(forearm*sin(elbow)/(arm + forearm*cos(elbow)), 5))
         wrist_connector = z - body + wrist
 
-        if x < 0:
-            shoulder = -shoulder
-            elbow = -elbow
+        if x <= 0:
+            shoulder += pi
+            if shoulder > pi:
+                shoulder -= 2*pi
 
         js_msg = JointState()
 
