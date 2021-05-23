@@ -15,6 +15,7 @@
 
 ![](./images/zad5/1.png)
 ![](./images/zad5/2.png)
+![](./images/zad5/3.png)
 
 #### RQT:
 
